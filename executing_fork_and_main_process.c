@@ -6,7 +6,7 @@
 /*   By: madiallo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 16:06:31 by madiallo          #+#    #+#             */
-/*   Updated: 2021/10/24 19:34:07 by madiallo         ###   ########.fr       */
+/*   Updated: 2021/10/24 20:00:57 by madiallo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int executing_fork_processes(int *fd[2], t_data *data)
 			return (-1);
 		if (pid == 0)
 		{
-			// int x;
 			close_unused_fd(data->nb_of_cmd + 1, n, fd);
 			if (n == 1)
 				{
@@ -42,9 +41,6 @@ int executing_fork_processes(int *fd[2], t_data *data)
 			execve(data->good_path, ft_split(data->cmd[n - 1], ' '), data->envp);
 			close_used_fd(data->nb_of_cmd + 1, n, fd);
 			perror("execve");
-			// read(fd[n - 1][0], &x, sizeof(int));
-			// x += 5;
-			// write(fd[n][1], &x, sizeof(int));
 			return 1;
 		}
 		n++;
