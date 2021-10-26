@@ -6,7 +6,7 @@
 /*   By: madiallo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 16:08:41 by madiallo          #+#    #+#             */
-/*   Updated: 2021/10/24 17:04:34 by madiallo         ###   ########.fr       */
+/*   Updated: 2021/10/26 17:53:29 by madiallo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,16 @@ int	create_the_output_file(char *filename)
 {
 	int fd;
 
-	if (check_if_file_exist(filename))
+	if (!check_if_file_exist(filename))
 	{
-		fd = open(filename, O_RDWR, O_TRUNC);
+		fd = open(filename, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 		if (fd == -1)
-			perror("");
-		return (fd);
+			perror("output");
+		close (fd);
 	}
-	fd = open(filename, O_CREAT, 0667);
+	fd = open(filename, O_WRONLY | O_TRUNC);
 	if (fd == -1)
-		perror("open");
+		perror("output1");
 	return (fd);
 }
 
@@ -41,6 +41,6 @@ int	open_the_input_file(char *filename)
 
 		fd = open(filename, O_RDONLY);
 		if (fd == -1)
-			perror("open");
+			perror("input");
 		return (fd);
 }

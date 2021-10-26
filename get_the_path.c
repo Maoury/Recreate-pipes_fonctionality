@@ -6,7 +6,7 @@
 /*   By: madiallo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 16:32:03 by madiallo          #+#    #+#             */
-/*   Updated: 2021/10/24 18:12:18 by madiallo         ###   ########.fr       */
+/*   Updated: 2021/10/26 18:17:37 by madiallo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,16 +60,16 @@ char  *ft_make_connect_path_and_cmd(char *path, char **cmd)
 	realcmd = ft_split(cmd[0], ' ');
 	if (!realcmd)
 		return (NULL);
-	if (realcmd[0][0] == '/')
+	if (ft_strchr(realcmd[0], '/'))
+	{
+		str = strdup(realcmd[0]);
+		if(!str)
 		{
-			str = strdup(realcmd[0]);
-			if(!str)
-			{
-				ft_free_the_path(realcmd, NULL);
-				return (NULL);
-			}
-			return (str);
+			ft_free_the_path(realcmd, NULL);
+			return (NULL);
 		}
+		return (str);
+	}
 	str = ft_strjoin(path, "/");
 	if (!str)
 	{
