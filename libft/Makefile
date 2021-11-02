@@ -39,7 +39,7 @@ SRCS =  ft_atoi.c \
 	ft_putendl_fd.c \
 	ft_putnbr_fd.c \
 	ft_tolower.c \
-	ft_toupper.c 
+	ft_toupper.c
 
 BONUS = ft_lstnew.c \
 	ft_lstsize.c \
@@ -49,7 +49,7 @@ BONUS = ft_lstnew.c \
 	ft_lstdelone.c \
 	ft_lstiter.c \
 	ft_lstmap.c \
-	ft_lstclear.c 
+	ft_lstclear.c
 
 SRCS_O  = ${SRCS:.c=.o}
 
@@ -59,10 +59,10 @@ all:	$(NAME)
 LIBC    = ar -rcs
 
 %.o: %.c
-	${CC} ${FLAGS} -c $< -o ${<:.c=.o}
+	${CC} ${FLAGS} -c $< -o $@
 
 $(NAME): ${SRCS_O}
-	${LIBC} $(NAME) $(SRCS_O)
+	${LIBC}  $(NAME) $(SRCS_O)
 
 bonus: $(SRCS_O) $(BONUS_O)
 	$(LIBC) $(NAME) $(SRCS_O) $(BONUS_O)

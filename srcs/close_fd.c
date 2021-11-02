@@ -1,27 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   close_fd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: madiallo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/18 15:47:22 by madiallo          #+#    #+#             */
-/*   Updated: 2021/10/29 17:37:46 by madiallo         ###   ########.fr       */
+/*   Created: 2021/10/22 15:52:32 by madiallo          #+#    #+#             */
+/*   Updated: 2021/10/27 20:21:31 by madiallo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../pipex.h"
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+void	close_all_fd(int nmax, int *fd[2])
 {
-	if (n == 0)
-		return (0);
-	if (!s1 || !s2)
-		return (-1);
-	while (*s1 && *s2 && *s1 == *s2 && --n)
-	{
-		++s1;
-		++s2;
-	}
-	return ((unsigned char)(*s1) - (unsigned char)(*s2));
+	int	i;
+
+	i = 0;
+	while (i < nmax)
+	{	
+		close(fd[i][0]);
+		close(fd[i][1]);
+		i++;
+	}		
 }

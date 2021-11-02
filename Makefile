@@ -1,38 +1,70 @@
-npipes.c close_fd.c create_fd_and_pipes.c 
-executing_fork_and_main_process.c action_on_files.c
+NAME 			:= pipex
+FILES			:= close_fd.c create_fd_and_pipes.c executing_fork_and_main_process.c get_exec_binary.c get_the_path.c heredoc.c main.c manage_data.c action_on_files.c
+SRCS			:= $(addprefix srcs/, $(FILES))
+OBJS			:= $(SRCS:.c=.o)
+DEPS			:= $(SRCS:.c=.d)
 
-NAME = libft.a
+FILES_BONUS_1	:= close_fd.c create_fd_and_pipes.c executing_fork_and_main_process.c get_exec_binary.c get_the_path.c heredoc.c main_b1.c manage_data.c action_on_files.c
+SRCS_BONUS_1	:= $(addprefix srcs/, $(FILES_BONUS_1))
+OBJS_BONUS_1	:= $(SRCS_BONUS_1:.c=.o)
+DEPS_BONUS_1	:= $(SRCS_BONUS_1:.c=.d)
 
-CC = gcc
+FILES_BONUS_2	:= close_fd.c create_fd_and_pipes.c executing_fork_and_main_process.c get_exec_binary.c get_the_path.c heredoc.c main_b2.c manage_data.c action_on_files.c
+SRCS_BONUS_2	:= $(addprefix srcs/, $(FILES_BONUS_2))
+OBJS_BONUS_2	:= $(SRCS_BONUS_2:.c=.o)
+DEPS_BONUS_2	:= $(SRCS_BONUS_2:.c=.d)
 
-FLAGS   = -Wall -Wextra -Werror
+GNL_DIR			:= ./gnl
+NAME_GNL		:= ${GNL_DIR}/gnl.a
 
-DEL = /bin/rm -f
+LIBFT_DIR		:= ./libft
+NAME_LIB		:= $(LIBFT_DIR)/libft.a
 
-SRCS =  
+CC				:= gcc
+CFLAGS			:= -fsanitize=address -g3 -Wall -Werror -Wextra
+DFLAGS			= -MMD -MF $(@:.o=.d)
 
-
-
-SRCS_O  = ${SRCS:.c=.o}
-
-BONUS_O = ${BONUS:.c=.o}
-all:	$(NAME)
-
-LIBC    = ar -rcs
-
+all: $(NAME_LIB) $(NAME_GNL) $(OBJS) $(NAME)
+-include $(DEPS)
+-include $(DEPS_BONUS_2)
+-include $(DEPS_BONUS_1)
 %.o: %.c
-	${CC} ${FLAGS} -c $< -o ${<:.c=.o}
+	$(CC) $(CFLAGS) -c $< -o $@ $(DFLAGS)
 
-$(NAME): ${SRCS_O}
-	${LIBC} $(NAME) $(SRCS_O)
+$(NAME_LIB):
+	@echo "LIBFT BUILDING BRU"
+	@(cd $(LIBFT_DIR) && $(MAKE))
 
-bonus: $(SRCS_O) $(BONUS_O)
-	$(LIBC) $(NAME) $(SRCS_O) $(BONUS_O)
+$(NAME_GNL):
+	@(cd $(GNL_DIR) && $(MAKE))
+
+$(NAME): $(OBJS) $(NAME_LIB)
+	$(CC) $(CFLAGS) $(OBJS) $(NAME_LIB) $(NAME_GNL) -o $(NAME)
+
+
+bonus_1: $(NAME_LIB) $(NAME_GNL) $(OBJS_BONUS_1) multipipex
+		$(CC) $(CFLAGS) $(OBJS_BONUS_1) $(NAME_LIB) $(NAME_GNL) -o ./multipipex/$(NAME)
+		@touch bonus_1
+multipipex:
+		@mkdir -p multipipex
+
+bonus_2: $(NAME_LIB) $(NAME_GNL) $(OBJS_BONUS_2) heredoc
+		$(CC) $(CFLAGS) $(OBJS_BONUS_2) $(NAME_LIB) $(NAME_GNL) -o ./heredoc/$(NAME)
+		@touch bonus_2
+heredoc:
+		@(mkdir -p heredoc)
 
 fclean: clean
-	$(DEL) $(NAME)
+	@(cd $(LIBFT_DIR) && make fclean)
+	@(cd $(GNL_DIR) && make fclean)
+	$(RM) $(NAME) ./multipipex/$(NAME) ./heredoc/$(NAME)
 
 clean:
-	$(DEL) $(SRCS_O) $(BONUS_O)
+	@(cd $(LIBFT_DIR) && make clean)
+	@(cd $(GNL_DIR) && make clean)
+	$(RM) $(OBJS) $(DEPS) $(OBJS_BONUS_1) $(DEPS_BONUS_1) $(OBJS_BONUS_2) $(DEPS_BONUS_2) bonus_1 bonus_2
 
 re: fclean all
+
+.PHONY: clean fclean re
+
