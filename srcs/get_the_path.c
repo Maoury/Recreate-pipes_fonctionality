@@ -6,7 +6,7 @@
 /*   By: madiallo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 16:32:03 by madiallo          #+#    #+#             */
-/*   Updated: 2021/10/27 21:03:43 by madiallo         ###   ########.fr       */
+/*   Updated: 2021/11/02 20:17:23 by madiallo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*ft_free_the_path(char **path, char *str)
 	{
 		while (path[i])
 			i++;
-		while (i < 0)
+		while (i >= 0)
 		{
 			if (path[i])
 				free(path[i]);
