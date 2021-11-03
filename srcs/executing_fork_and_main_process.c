@@ -14,6 +14,7 @@
 
 int	execute_forks_process(t_data *data, int *fd[2], int n)
 {
+	char	**good_cmd;
 	if (n == 1)
 		dup2(data->infile_fd, 0);
 	else
@@ -26,10 +27,11 @@ int	execute_forks_process(t_data *data, int *fd[2], int n)
 	else
 		dup2(fd[n][1], 1);
 	close_all_fd(data->nb_of_cmd, fd);
-	execve(data->good_path, ft_split(data->cmd[n - 1], ' '), data->envp);
+	good_cmd = ft_split(data->cmd[n - 1], ' ');
+	execve(data->good_path, good_cmd, data->envp);
 	perror("execve");
 	free_pipe_fd_created(fd, data->nb_of_cmd + 1);
-	free(data->good_path);
+	ft_free_the_path(good_cmd, data->good_path);
 	free_data(data);
 	exit(1);
 }

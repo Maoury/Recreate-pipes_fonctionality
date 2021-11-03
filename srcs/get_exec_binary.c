@@ -83,5 +83,5 @@ char	*ft_find_binary_exec(char *path, char **cmd)
 		i++;
 	}
 	ft_free_the_path(list_of_path, tmp);
-	return (NULL);
+	return (strdup(cmd[0]));
 }
