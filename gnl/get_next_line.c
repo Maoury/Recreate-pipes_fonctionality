@@ -6,7 +6,7 @@
 /*   By: madiallo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 15:39:27 by madiallo          #+#    #+#             */
-/*   Updated: 2021/10/29 17:09:15 by madiallo         ###   ########.fr       */
+/*   Updated: 2021/11/02 20:24:12 by madiallo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static char	*ft_put_line(char *str)
 	i = 0;
 	while (str[i] && str[i] != '\n')
 		i++;
-	line = (char *)malloc(sizeof(char) * (i + 1));
+	line = (char *)malloc(sizeof(char) * (i + 2));
 	if (!line)
 		return (ft_free_str(str));
 	i = 0;
@@ -58,15 +58,18 @@ static char	*ft_put_line(char *str)
 		i++;
 	}
 	if (str[i] == '\n')
+	{
 		line[i] = str[i];
-	line[++i] = '\0';
+		i++;
+	}
+	line[i] = '\0';
 	ft_free_str(str);
 	return (line);
 }
 
 char	*get_next_line(int fd)
 {
-	char static	buffer[1024][BUFFER_SIZE + 1];
+	static char	buffer[1024][BUFFER_SIZE + 1];
 	int			bytes;
 	char		*line;
 

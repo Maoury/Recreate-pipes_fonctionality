@@ -6,7 +6,7 @@
 /*   By: madiallo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 16:34:13 by madiallo          #+#    #+#             */
-/*   Updated: 2021/11/02 16:25:03 by madiallo         ###   ########.fr       */
+/*   Updated: 2021/11/02 20:36:32 by madiallo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ char	**create_table_for_commands(char **argv, int argc, t_data *data)
 		}
 	}
 	cmd[i] = 0;
-	//printf("%s\n %s\n", cmd[i - 1], cmd[i - 2]);
 	return (cmd);
 }
 
@@ -55,6 +54,7 @@ char	*this_exec_path_already_exist(char **cmd)
 			return (NULL);
 		return (to_return);
 	}
+	ft_free_the_path(str, NULL);
 	return (NULL);
 }
 

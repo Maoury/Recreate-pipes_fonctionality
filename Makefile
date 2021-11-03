@@ -20,8 +20,9 @@ NAME_GNL		:= ${GNL_DIR}/gnl.a
 LIBFT_DIR		:= ./libft
 NAME_LIB		:= $(LIBFT_DIR)/libft.a
 
+#-fsanitize=address -g3
 CC				:= gcc
-CFLAGS			:= -fsanitize=address -g3 -Wall -Werror -Wextra
+CFLAGS			:= -Wall -Werror -Wextra
 DFLAGS			= -MMD -MF $(@:.o=.d)
 
 all: $(NAME_LIB) $(NAME_GNL) $(OBJS) $(NAME)

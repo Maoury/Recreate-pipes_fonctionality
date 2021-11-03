@@ -6,7 +6,7 @@
 /*   By: madiallo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 16:06:31 by madiallo          #+#    #+#             */
-/*   Updated: 2021/11/01 17:17:02 by madiallo         ###   ########.fr       */
+/*   Updated: 2021/11/02 20:39:49 by madiallo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int	execute_forks_process(t_data *data, int *fd[2], int n)
 	execve(data->good_path, ft_split(data->cmd[n - 1], ' '), data->envp);
 	perror("execve");
 	free_pipe_fd_created(fd, data->nb_of_cmd + 1);
+	free(data->good_path);
 	free_data(data);
 	exit(1);
 }

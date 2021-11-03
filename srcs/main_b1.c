@@ -15,24 +15,26 @@
 int	main(int argc, char *argv[], char *envp[])
 {
 	int		**fd;
-	t_data	data;
+	t_data	*data;
 
 	if (argc >= 5)
 	{
-		if (!fill_data(&data, argc, argv, envp))
+		data = malloc(sizeof(t_data));
+		data->heredoc_switch = 0;
+		if (!fill_data(data, argc, argv, envp))
 		{
-			free_data(&data);
+			free_data(data);
 			return (0);
 		}
-		fd = create_all_needed_fd(data.nb_of_cmd + 1);
+		fd = create_all_needed_fd(data->nb_of_cmd + 1);
 		if (!fd)
 		{
-			free_data(&data);
+			free_data(data);
 			return (0);
 		}
-		make_fork_processes(fd, &data);
-		free_pipe_fd_created(fd, data.nb_of_cmd + 1);
-		free_data(&data);
+		make_fork_processes(fd, data);
+		free_pipe_fd_created(fd, data->nb_of_cmd + 1);
+		free_data(data);
 		return (0);
 	}
 }

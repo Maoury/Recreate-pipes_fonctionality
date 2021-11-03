@@ -45,8 +45,8 @@ char	*get_the_heredoc_user_input(char *limiter_without_nl, char *str)
 			return (NULL);
 		}
 	}
-	free(tmp);
-	free(limiter);
+	ft_free_the_path(NULL, tmp);
+	ft_free_the_path(NULL, limiter);
 	return (str);
 }
 
@@ -57,14 +57,18 @@ int	get_heredoc_input(t_data *data, char *limiter_without_nl)
 
 	if (pipe(pfd) == -1)
 		return (0);
-	str = NULL;
-	str = get_the_heredoc_user_input(limiter_without_nl, str);
-	if (!str)
-		return (0);
-	ft_putstr_fd(str, pfd[1]);
-	close(pfd[1]);
-	free(str);
-	data->infile_fd = pfd[0];
-	data->heredoc_switch = 1;
-	return (1);
+	else
+	{
+		str = NULL;
+		str = get_the_heredoc_user_input(limiter_without_nl, str);
+		if (!str)
+			return (0);
+		ft_putstr_fd(str, pfd[1]);
+		if (pfd[1] != -1)
+			close(pfd[1]);
+		ft_free_the_path(NULL, str);
+		data->infile_fd = pfd[0];
+		data->heredoc_switch = 1;
+		return (1);
+	}
 }

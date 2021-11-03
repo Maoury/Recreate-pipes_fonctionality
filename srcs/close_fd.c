@@ -19,8 +19,10 @@ void	close_all_fd(int nmax, int *fd[2])
 	i = 0;
 	while (i < nmax)
 	{	
-		close(fd[i][0]);
-		close(fd[i][1]);
+		if (fd[i][0] >= 0)
+			close(fd[i][0]);
+		if (fd[i][1] >= 0)
+			close(fd[i][1]);
 		i++;
 	}		
 }

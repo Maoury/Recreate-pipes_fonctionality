@@ -23,7 +23,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	if (!join)
 		return (NULL);
 	ptr = join;
-	if	(s1)
+	if (s1)
 		while (*s1)
 			*join++ = *s1++;
 	if (s2)
