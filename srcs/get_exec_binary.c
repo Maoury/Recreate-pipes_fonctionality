@@ -3,14 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   get_exec_binary.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: madiallo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: madiallo <madiallo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 16:34:13 by madiallo          #+#    #+#             */
-/*   Updated: 2021/11/02 20:36:32 by madiallo         ###   ########.fr       */
+/*   Updated: 2021/12/07 19:37:08 by madiallo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../pipex.h"
+
+static void	path_errror(char *str)
+{
+	ft_putstr_fd("command not found: ", 2);
+	ft_putstr_fd(str, 2);
+	ft_putchar_fd('\n', 2);
+}
 
 char	**create_table_for_commands(char **argv, int argc, t_data *data)
 {
@@ -70,7 +77,7 @@ char	*ft_find_binary_exec(char *path, char **cmd)
 	if (this_exec_path_already_exist(cmd))
 		return (this_exec_path_already_exist(cmd));
 	list_of_path = ft_split(path, ':');
-	if (!path)
+	if (!list_of_path)
 		return (NULL);
 	while (list_of_path[i])
 	{
@@ -83,5 +90,6 @@ char	*ft_find_binary_exec(char *path, char **cmd)
 		i++;
 	}
 	ft_free_the_path(list_of_path, tmp);
-	return (strdup(cmd[0]));
+	path_errror(cmd[0]);
+	return (ft_strdup(cmd[0]));
 }

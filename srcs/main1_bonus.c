@@ -1,12 +1,16 @@
+
+
+
+
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   main_b1.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: madiallo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: madiallo <madiallo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 16:57:27 by madiallo          #+#    #+#             */
-/*   Updated: 2021/11/02 16:58:21 by madiallo         ###   ########.fr       */
+/*   Updated: 2021/12/07 19:53:32 by madiallo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +21,7 @@ int	main(int argc, char *argv[], char *envp[])
 	int		**fd;
 	t_data	*data;
 
-	if (argc >= 5)
+	if (argc >= 4)
 	{
 		data = malloc(sizeof(t_data));
 		data->heredoc_switch = 0;

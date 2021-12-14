@@ -4,12 +4,12 @@ SRCS			:= $(addprefix srcs/, $(FILES))
 OBJS			:= $(SRCS:.c=.o)
 DEPS			:= $(SRCS:.c=.d)
 
-FILES_BONUS_1	:= close_fd.c create_fd_and_pipes.c executing_fork_and_main_process.c get_exec_binary.c get_the_path.c heredoc.c main_b1.c manage_data.c action_on_files.c
+FILES_BONUS_1	:= close_fd.c create_fd_and_pipes.c executing_fork_and_main_process.c get_exec_binary.c get_the_path.c heredoc.c main1_bonus.c manage_data.c action_on_files.c
 SRCS_BONUS_1	:= $(addprefix srcs/, $(FILES_BONUS_1))
 OBJS_BONUS_1	:= $(SRCS_BONUS_1:.c=.o)
 DEPS_BONUS_1	:= $(SRCS_BONUS_1:.c=.d)
 
-FILES_BONUS_2	:= close_fd.c create_fd_and_pipes.c executing_fork_and_main_process.c get_exec_binary.c get_the_path.c heredoc.c main_b2.c manage_data.c action_on_files.c
+FILES_BONUS_2	:= close_fd.c create_fd_and_pipes.c executing_fork_and_main_process.c get_exec_binary.c get_the_path.c heredoc.c main2_bonus.c manage_data.c action_on_files.c
 SRCS_BONUS_2	:= $(addprefix srcs/, $(FILES_BONUS_2))
 OBJS_BONUS_2	:= $(SRCS_BONUS_2:.c=.o)
 DEPS_BONUS_2	:= $(SRCS_BONUS_2:.c=.d)
@@ -29,9 +29,6 @@ all: $(NAME_LIB) $(NAME_GNL) $(OBJS) $(NAME)
 -include $(DEPS)
 -include $(DEPS_BONUS_2)
 -include $(DEPS_BONUS_1)
-%.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@ $(DFLAGS)
-
 $(NAME_LIB):
 	@echo "LIBFT BUILDING BRU"
 	@(cd $(LIBFT_DIR) && $(MAKE))
@@ -42,15 +39,19 @@ $(NAME_GNL):
 $(NAME): $(OBJS) $(NAME_LIB)
 	$(CC) $(CFLAGS) $(OBJS) $(NAME_LIB) $(NAME_GNL) -o $(NAME)
 
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@ $(DFLAGS)
+
 
 bonus_1: $(NAME_LIB) $(NAME_GNL) $(OBJS_BONUS_1) multipipex
-		$(CC) $(CFLAGS) $(OBJS_BONUS_1) $(NAME_LIB) $(NAME_GNL) -o ./multipipex/$(NAME)
+		$(CC) $(CFLAGS) $(OBJS_BONUS_1) $(NAME_LIB) $(NAME_GNL) -o $(NAME)
 		@touch bonus_1
+
 multipipex:
 		@mkdir -p multipipex
 
 bonus_2: $(NAME_LIB) $(NAME_GNL) $(OBJS_BONUS_2) heredoc
-		$(CC) $(CFLAGS) $(OBJS_BONUS_2) $(NAME_LIB) $(NAME_GNL) -o ./heredoc/$(NAME)
+		$(CC) $(CFLAGS) $(OBJS_BONUS_2) $(NAME_LIB) $(NAME_GNL) -o $(NAME)
 		@touch bonus_2
 heredoc:
 		@(mkdir -p heredoc)

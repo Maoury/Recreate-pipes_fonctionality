@@ -32,7 +32,7 @@ int	create_the_output_file(char *filename, int hd_switch)
 	}
 	fd = open(filename, O_WRONLY | O_TRUNC);
 	if (fd == -1)
-		perror("output1");
+		perror("output");
 	return (fd);
 }
 
@@ -49,7 +49,7 @@ int	open_outfile_for_the_heredoc(char *filename)
 	}
 	fd = open(filename, O_WRONLY | O_APPEND);
 	if (fd == -1)
-		perror("output1");
+		perror("output");
 	return (fd);
 }
 
